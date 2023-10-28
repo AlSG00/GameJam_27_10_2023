@@ -21,6 +21,7 @@ public class ScenarioTrigger : MonoBehaviour
 
     public bool enteredTrigger = false;
     public bool activateWithButton = false;
+    public bool alreadyActivated = false;
     private void SetEventFinishedFlag()
     {
         additionalEventFinished = true;
@@ -60,12 +61,11 @@ public class ScenarioTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        enteredTrigger = true;
         if (other.CompareTag("Player") == false || canBeActivated == false)
         {
             return;
         }
-
+        enteredTrigger = true;
         additionalEventFinished = false;
 
         if (_playerClue != "")
@@ -116,6 +116,14 @@ public class ScenarioTrigger : MonoBehaviour
 
     private void Activate()
     {
+        if (alreadyActivated)
+        {
+            return;
+        }
+
+        alreadyActivated = true;
+
+        onGetClue?.Invoke("");
         if (hasAdditionalEvent)
         {
             GetComponent<IEvent>().DoAction();

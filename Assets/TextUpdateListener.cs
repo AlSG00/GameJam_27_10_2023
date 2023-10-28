@@ -19,6 +19,7 @@ public class TextUpdateListener : MonoBehaviour
         ScenarioTrigger.onPlayerEnter += EnqueueTextLine;
         ScenarioTrigger.onGetNewTask += UpdateTaskText;
         ScenarioTrigger.onGetClue += UpdateClueText;
+        PlayerTextEvent.OnTextEvent += EnqueueTextLine;
     }
 
     private void OnDisable()
@@ -27,6 +28,7 @@ public class TextUpdateListener : MonoBehaviour
         ScenarioTrigger.onPlayerEnter -= EnqueueTextLine;
         ScenarioTrigger.onGetNewTask -= UpdateTaskText;
         ScenarioTrigger.onGetClue -= UpdateClueText;
+        PlayerTextEvent.OnTextEvent -= EnqueueTextLine;
     }
 
     private void Update()
@@ -82,11 +84,11 @@ public class TextUpdateListener : MonoBehaviour
     private void DequeueTextLine()
     {
         UpdatePlayerText(speechQueue.Dequeue());
-        
-        if (speechQueue.Count == 0)
-        {
-            hideTextTime = Time.time;
-        }
+        hideTextTime = Time.time;
+        //if (speechQueue.Count == 0)
+        //{
+        //    hideTextTime = Time.time;
+        //}
 
     }
 

@@ -17,7 +17,6 @@ public class StartScreenEndEvent : MonoBehaviour
             "[W][A][S][D] - перемещение\n[Shift] - ускорение"
         };
 
-        //OnTitleFinish?.Invoke("Уже слишком поздно...\nдалее [е]", true);
         OnTitleFinish?.Invoke(startSpeech);
 
         OnTitleScreenFade?.Invoke(false);

@@ -11,21 +11,12 @@ public class ScenarioTriger_WashFace : MonoBehaviour, IEvent
 
     public async void DoAction()
     {
-        //OnPlayerEnter?.Invoke(false);
-        ////StartCoroutine(WashFace());
-        ////while (canProceed == false)
-        ////{
-        ////    continue;
-        ////}
-
-        //OnPlayerEnter?.Invoke(true);
-        //GetComponent<ScenarioTrigger>().additionalEventFinished = true;
-
+        GetComponent<AudioSource>().Play();
         _blackScreenAnimator.SetBool("FadeOut", true);
         StartScreenEndEvent.OnActivatePlayer?.Invoke(false);
         do
         {
-            await System.Threading.Tasks.Task.Delay(200);
+            await System.Threading.Tasks.Task.Delay(300);
         }
         while (_blackScreenAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1f);
 

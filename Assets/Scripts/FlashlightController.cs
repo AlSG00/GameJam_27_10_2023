@@ -11,16 +11,22 @@ public class FlashlightController : MonoBehaviour
     [SerializeField] AudioClip  TurnOnAudio;
     [SerializeField] AudioClip TurnOffAudio;
     private bool _isActive;
+    private bool isAvailable = false;
 
     // Здесь будет подписка на ивенты, когда фонариком надо поморгать или выключить его
     private void OnEnable()
     {
-        
+        FirstPhoneCallScenario.OnFlashlightAvailable += SetAvailable;
     }
 
     private void OnDisable()
     {
-        
+        FirstPhoneCallScenario.OnFlashlightAvailable -= SetAvailable;
+    }
+
+    private void SetAvailable(bool available)
+    {
+        isAvailable = available;
     }
 
     // Start is called before the first frame update
@@ -41,6 +47,11 @@ public class FlashlightController : MonoBehaviour
 
     private void HandleFlashlightState()
     {
+        if (isAvailable == false)
+        {
+            return;
+        }
+
         if (_isActive == false)
         {
             _isActive = true;
