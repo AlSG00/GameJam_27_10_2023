@@ -7,7 +7,7 @@ public class SynchronizePosition : MonoBehaviour
     [SerializeField] Transform textPivot;
     [SerializeField] RectTransform textRect;
 
-    private void LateUpdate()
+    private void FixedUpdate()
     {
             textRect.position = Camera.main.WorldToScreenPoint(textPivot.position);
     }

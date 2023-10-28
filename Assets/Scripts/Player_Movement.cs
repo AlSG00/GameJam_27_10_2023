@@ -23,6 +23,7 @@ public class Player_Movement : MonoBehaviour
     public bool isRunning = false; 
     public float turnSpeed = 0.1f; // TODO: Пока не используется, исправить
     public Vector3 movement; //TODO: Нафига оно тут??
+    public bool canMove = false;
     
     [Header("Movement audio")]
     [SerializeField] private AudioSource footstepsAudioSource;
@@ -38,6 +39,17 @@ public class Player_Movement : MonoBehaviour
 
     #endregion
 
+    private void OnEnable()
+    {
+        StartScreenEndEvent.OnActivatePlayer += ActivateControls;
+        ScenarioTriger_WashFace.OnPlayerEnter += ActivateControls;
+    }
+
+    private void OnDisable()
+    {
+        StartScreenEndEvent.OnActivatePlayer -= ActivateControls;
+        ScenarioTriger_WashFace.OnPlayerEnter -= ActivateControls;
+    }
 
     //private void Start()
     //{
@@ -48,9 +60,17 @@ public class Player_Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Move();
-        Sprint();
-        HandleRotationInput();
+        if (canMove)
+        {
+            Move();
+            Sprint();
+            HandleRotationInput();
+        }
+    }
+
+    private void ActivateControls(bool activate)
+    {
+        canMove = activate;
     }
 
     private void Sprint()
