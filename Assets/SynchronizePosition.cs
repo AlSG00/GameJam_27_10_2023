@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class SynchronizePosition : MonoBehaviour
 {
-    [SerializeField] Transform textPivot;
+    public Transform textPivot;
     [SerializeField] RectTransform textRect;
 
     private void FixedUpdate()
     {
-            textRect.position = Camera.main.WorldToScreenPoint(textPivot.position);
+        textRect.position = Camera.main.WorldToScreenPoint(textPivot.position);
     }
 }

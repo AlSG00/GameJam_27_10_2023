@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class LeaveApartmentScenario : MonoBehaviour, IEvent
 {
-    public GameObject screamer;
+    public GameObject screamerFirst;
+    public GameObject screamerSecond;
     public Animator screamerAnimator;
     public AudioSource screamerSecondAudioSource;
+    public AudioSource musicAudio;
+    public Light[] lights;
 
     public async void DoAction()
     {
         StartScreenEndEvent.OnActivatePlayer?.Invoke(false);
-
+        screamerFirst.SetActive(false);
         PlayerTextEvent.OnTextEvent?.Invoke(new string[] {
             "Не открывается...",
             "Не могу открыть чёртову дверь!",
@@ -19,7 +22,7 @@ public class LeaveApartmentScenario : MonoBehaviour, IEvent
         }
         );
 
-        screamer.SetActive(true);
+        screamerSecond.SetActive(true);
 
         do
         {
@@ -33,6 +36,13 @@ public class LeaveApartmentScenario : MonoBehaviour, IEvent
             await System.Threading.Tasks.Task.Delay(300);
         }
         while (screamerSecondAudioSource.isPlaying);
+        screamerSecond.SetActive(false);
+        musicAudio.Stop();
+
+        foreach (var light in lights)
+        {
+            light.enabled = true;
+        }
 
         StartScreenEndEvent.OnActivatePlayer?.Invoke(true);
         GetComponent<ScenarioTrigger>().ActivateTrigger();
