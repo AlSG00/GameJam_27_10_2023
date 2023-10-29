@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class bedroomEscapeScreamerScenario : MonoBehaviour
+public class bedroomEscapeScreamerScenario : MonoBehaviour, IEvent
 {
-    public GameObject screamerObject;
+    //public GameObject screamerObject;
     public GameObject invisibleWall;
 
     public void DoAction()

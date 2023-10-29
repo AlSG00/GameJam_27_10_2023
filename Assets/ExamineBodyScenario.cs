@@ -25,18 +25,19 @@ public class ExamineBodyScenario : MonoBehaviour, IEvent
     public async void DoAction()
     {
         StartScreenEndEvent.OnActivatePlayer?.Invoke(false);
-
+        var audioSource = GetComponent<AudioSource>();
 
         PlayerTextEvent.OnTextEvent?.Invoke(new string[] {
             "...это... ...я?"
         });
 
         //
-        await Task.Delay(4000);
+        await Task.Delay(8000);
 
         _roomLight.enabled = false;
         await Task.Delay(50);
         _mainVictim.SetActive(true);
+        audioSource.Play();
         await Task.Delay(50);
         _roomLight.enabled = true;
 
@@ -46,6 +47,7 @@ public class ExamineBodyScenario : MonoBehaviour, IEvent
         _roomLight.enabled = false;
         await Task.Delay(50);
         _firstVictimGroup.SetActive(true);
+        audioSource.Play();
         await Task.Delay(50);
         //_musicSource.enabled = true;
         //_musicSource.Play();
@@ -56,6 +58,7 @@ public class ExamineBodyScenario : MonoBehaviour, IEvent
         _roomLight.enabled = false;
         await Task.Delay(50);
         _secondVictimGroup.SetActive(true);
+        audioSource.Play();
         await Task.Delay(50);
         _roomLight.enabled = true;
         await Task.Delay(2900); // 8th
@@ -63,6 +66,7 @@ public class ExamineBodyScenario : MonoBehaviour, IEvent
         _roomLight.enabled = false;
         await Task.Delay(50);
         _thirdVictimGroup.SetActive(true);
+        audioSource.Play();
         await Task.Delay(50);
         _roomLight.enabled = true;
         await Task.Delay(2900); // 9th
@@ -79,12 +83,19 @@ public class ExamineBodyScenario : MonoBehaviour, IEvent
         _secondVictimGroup.SetActive(false);
         _thirdVictimGroup.SetActive(false);
         _fourthVictimGroup.SetActive(true);
+        audioSource.Play();
         await Task.Delay(3000);
         _hellLight.SetActive(true);
         _musicSource.clip = secondMusic;
         _musicSource.Play();
         await Task.Delay(15000);
         _mainVictim.SetActive(false);
+        audioSource.Play();
+        do
+        {
+            await Task.Delay(200);
+        }
+        while (audioSource.isPlaying);
         StartScreenEndEvent.OnActivatePlayer?.Invoke(true);
         GetComponent<ScenarioTrigger>().ActivateTrigger();
     }

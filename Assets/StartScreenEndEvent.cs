@@ -14,7 +14,8 @@ public class StartScreenEndEvent : MonoBehaviour
         {
             "”же слишком поздно...\nдалее [E]",
             "«автра закончу проект, пора ложитьс€.",
-            "[W][A][S][D] - перемещение\n[Shift] - ускорение"
+            "[W][A][S][D] - перемещение\n[Shift] - ускорение",
+            "[Esc] (быстрое двойное нажатие) - выйти из игры"
         };
 
         OnTitleFinish?.Invoke(startSpeech);

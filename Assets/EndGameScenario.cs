@@ -8,11 +8,15 @@ public class EndGameScenario : MonoBehaviour, IEvent
     [SerializeField] private TextMeshProUGUI endText;
     [SerializeField] private AudioSource glitchAudio;
     [SerializeField] private AudioSource musicSource;
+    [SerializeField] private AudioClip glitchSound;
+    [SerializeField] private AudioClip glitchSoundSecond;
+
 
     public async void DoAction()
     {
+        StartScreenEndEvent.OnActivatePlayer?.Invoke(false);
+        glitchAudio.Stop();
         ScenarioTrigger.onGetNewTask?.Invoke("");
-        musicSource.Stop();
         GetComponent<AudioSource>().Play();
         BlackScreenAnimator.SetBool("FadeOut", true);
         do
@@ -23,12 +27,14 @@ public class EndGameScenario : MonoBehaviour, IEvent
         await System.Threading.Tasks.Task.Delay(2000);
 
         endText.enabled = true;
+        glitchAudio.loop = false;
+        glitchAudio.PlayOneShot(glitchSound);
         musicSource.Stop();
-        glitchAudio.Play();
+        //glitchAudio.Play();
         await System.Threading.Tasks.Task.Delay(5000);
 
         endText.enabled = false;
-        glitchAudio.Play();
+        glitchAudio.PlayOneShot(glitchSoundSecond);
         await System.Threading.Tasks.Task.Delay(2000);
 
         Application.Quit();

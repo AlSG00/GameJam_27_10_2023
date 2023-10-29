@@ -10,9 +10,11 @@ public class LeaveApartmentScenario : MonoBehaviour, IEvent
     public AudioSource screamerSecondAudioSource;
     public AudioSource musicAudio;
     public Light[] lights;
+    public GameObject invisibleWallInRoom;
 
     public async void DoAction()
     {
+        invisibleWallInRoom.SetActive(false);
         StartScreenEndEvent.OnActivatePlayer?.Invoke(false);
         screamerFirst.SetActive(false);
         PlayerTextEvent.OnTextEvent?.Invoke(new string[] {
